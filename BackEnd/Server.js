@@ -8,11 +8,15 @@ const { Pool } = require('pg');
 const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
-  cors: {
-    origin: "https://ceis.variamos.com",
-    methods: ["GET", "POST"]
-  }
-});
+    cors: {
+      origin: "https://ceis.variamos.com",
+      methods: ["GET", "POST"],
+      transports: ["websocket"],
+      secure: true,
+    },
+    allowEIO3: true, // Asegúrate de que la compatibilidad con versiones antiguas esté habilitada
+  });
+  
 
 const pool = new Pool({
   user: 'adminpg',
@@ -901,6 +905,7 @@ socket.on('edgeLabelChanged', async (data) => {
 });
 
 const PORT = 4000;
-server.listen(PORT, '127.0.0.1', () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+server.listen(PORT, '0.0.0.0', () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+  
