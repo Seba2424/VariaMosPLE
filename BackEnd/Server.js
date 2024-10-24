@@ -9,7 +9,7 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIo(server, {
   cors: {
-    origin: "http://ceis.variamos.com:3000",
+    origin: "https://ceis.variamos.com",
     methods: ["GET", "POST"]
   }
 });
