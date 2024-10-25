@@ -107,6 +107,9 @@ export default class ProjectService {
       this.socket.emit('registerWorkspace', { clientId: this.clientId, workspaceId: this.workspaceId });
   });
 
+// index.js o App.js
+console.log('URL Backend Language:', process.env.REACT_APP_URLBACKENDLANGUAGE);
+
  // this.socket.on('projectCreated', (data) => {
    // console.log('Received projectCreated event:', data); // Log para verificar si el evento fue recibido
     //if (data.workspaceId === this.workspaceId && data.clientId !== this.clientId) {
