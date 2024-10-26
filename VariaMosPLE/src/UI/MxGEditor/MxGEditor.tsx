@@ -219,7 +219,7 @@ export default class MxGEditor extends Component<Props, State> {
 });
 
     me.socket.on('cellMoved', (data) => {
-      if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+      if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
           me.isLocalChange = true;
           data.cells.forEach(cellData => {
               let cell = MxgraphUtils.findVerticeById(me.graph, cellData.id, null);
@@ -239,7 +239,7 @@ const connectionsMap = {};
 
 me.socket.on('cellConnected', (data) => {
     console.log('Received cellConnected:', data);
-    if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+    if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
         me.isLocalChange = true;
 
         let source = MxgraphUtils.findVerticeById(me.graph, data.sourceId, null);
@@ -279,7 +279,7 @@ me.socket.on('cellAdded', (data) => {
   console.log('Received cellAdded:', data);
   console.log(`Server received cellAdded from client ${data.clientId} in workspace ${data.workspaceId}`);
 
-  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
     me.isLocalChange = true;
 
     data.cells.forEach(cellData => {
@@ -388,7 +388,7 @@ me.socket.on('cellAdded', (data) => {
 
   me.socket.on('cellRemoved', (data) => {
     console.log('Received cellRemoved:', data);
-    if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+    if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
         me.isLocalChange = true;
         data.cellIds.forEach(cellId => {
             let cell = MxgraphUtils.findVerticeById(me.graph, cellId, null);
@@ -410,7 +410,7 @@ me.socket.on('cellAdded', (data) => {
 me.socket.on('propertiesChanged', (data) => {
   console.log('Received propertiesChanged:', data);
 
-  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
     me.isLocalChange = true;
 
     // Buscar la celda o conexión (edge) por su ID
@@ -499,7 +499,7 @@ me.socket.on('propertiesChanged', (data) => {
 me.socket.on('cellResized', (data) => {
     console.log('Received cellResized:', data);
 
-    if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+    if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
         me.isLocalChange = true;
 
         data.cells.forEach(cellData => {
@@ -535,7 +535,7 @@ this.socket.on('cursorMoved', (data) => {
 
 
 this.socket.on('edgeStyleChanged', (data) => {
-  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
     let edge = MxgraphUtils.findEdgeById(me.graph, data.edgeId, null);
     if (edge) {
       edge.setStyle(data.style);
@@ -545,7 +545,7 @@ this.socket.on('edgeStyleChanged', (data) => {
 });
 
 me.socket.on('edgeLabelChanged', (data) => {
-  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId) {
+  if (data.workspaceId === me.workspaceId && data.clientId !== me.clientId && data.modelId === this.props.projectService.getTreeIdItemSelected()) {
     let cell = MxgraphUtils.findEdgeById(me.graph, data.cellId, null);
     if (cell) {
       cell.value.setAttribute('label', data.label);
